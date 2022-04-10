@@ -1,4 +1,4 @@
-package logic.main;
+package main;
 
 import logic.controller.Controller;
 import logic.controller.InputStreamFactory;
