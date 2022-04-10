@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class Controller {
+    private static final String COMPRESSED_FILE_EXTENSION = ".huff";
+
     private final Encoder encoder;
     private final Decoder decoder;
     private final InputStreamFactory inputStreamFactory;
@@ -20,6 +22,10 @@ public class Controller {
         this.decoder = decoder;
         this.inputStreamFactory = inputStreamFactory;
         this.outputStreamFactory = outputStreamFactory;
+    }
+
+    public String getCompressedFileExtension() {
+        return COMPRESSED_FILE_EXTENSION;
     }
 
     public void compressFile(File inputFile, File outputFile) throws IOException {

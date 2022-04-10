@@ -22,7 +22,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FileCompressionTest {
-    private static final String COMPRESSED_FILE_EXTENSION = ".huff";
     private static final String TEST_FILES_DIR_PATH = "src/integrationtest/resources/testfiles";
     private static final String COMPRESSED_FILES_DIR_PATH = "src/integrationtest/resources/testfiles/comp";
     private static final String DECOMPRESSED_FILES_DIR_PATH = "src/integrationtest/resources/testfiles/decomp";
@@ -56,7 +55,8 @@ public class FileCompressionTest {
     }
 
     private void testFileCompression(File file) {
-        File compressedFile = new File(COMPRESSED_FILES_DIR_PATH + "/" + file.getName() + COMPRESSED_FILE_EXTENSION),
+        File compressedFile = new File(
+                COMPRESSED_FILES_DIR_PATH + "/" + file.getName() + controller.getCompressedFileExtension()),
                 decompressedFile = new File(DECOMPRESSED_FILES_DIR_PATH + "/" + file.getName());
         try {
             controller.compressFile(file, compressedFile);
