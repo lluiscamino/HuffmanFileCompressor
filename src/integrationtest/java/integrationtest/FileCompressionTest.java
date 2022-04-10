@@ -51,7 +51,7 @@ public class FileCompressionTest {
         Arrays.stream(testFiles).filter(File::isFile).forEach(this::testFileCompression);
         float compressionRatio = (float) testFileSizesSum.get() / compressedFileSizesSum.get();
         System.out.println(
-                "Compression ratio: " + testFileSizesSum + "B/" + compressedFileSizesSum + "B = " + compressionRatio + "%");
+                "Compression ratio: " + testFileSizesSum + "B/" + compressedFileSizesSum + "B = " + compressionRatio);
     }
 
     private void testFileCompression(File file) {
