@@ -1,6 +1,7 @@
 package main;
 
-import logic.controller.Controller;
+import logic.controller.ApplicationController;
+import logic.controller.FileFactory;
 import logic.controller.InputStreamFactory;
 import logic.controller.OutputStreamFactory;
 import logic.decoder.Decoder;
@@ -15,7 +16,9 @@ public class Main {
     public static void main(String[] args) {
         Encoder encoder = new Encoder(new HuffmanTreeBuilder(), new BitEncodingMapBuilder(), new HuffmanTreeEncoder());
         Decoder decoder = new Decoder(new HuffmanTreeDecoder());
-        Controller controller = new Controller(encoder, decoder, new InputStreamFactory(), new OutputStreamFactory());
+        ApplicationController controller = new ApplicationController(encoder, decoder, new FileFactory(),
+                new InputStreamFactory(),
+                new OutputStreamFactory());
         ApplicationUI ui = new ApplicationUI(controller);
         ui.setVisible(true);
     }

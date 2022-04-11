@@ -1,6 +1,8 @@
 package integrationtest;
 
+import logic.controller.ApplicationController;
 import logic.controller.Controller;
+import logic.controller.FileFactory;
 import logic.controller.InputStreamFactory;
 import logic.controller.OutputStreamFactory;
 import logic.decoder.Decoder;
@@ -34,7 +36,8 @@ public class FileCompressionTest {
     void setUp() {
         Encoder encoder = new Encoder(new HuffmanTreeBuilder(), new BitEncodingMapBuilder(), new HuffmanTreeEncoder());
         Decoder decoder = new Decoder(new HuffmanTreeDecoder());
-        controller = new Controller(encoder, decoder, new InputStreamFactory(), new OutputStreamFactory());
+        controller = new ApplicationController(encoder, decoder, new FileFactory(), new InputStreamFactory(),
+                new OutputStreamFactory());
         processedTestFiles = new AtomicLong();
         testFileSizesSum = new AtomicLong();
         compressedFileSizesSum = new AtomicLong();
