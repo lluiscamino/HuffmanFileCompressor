@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 
 public class ActionsMenu extends JPanel {
     private final Controller controller;
@@ -17,10 +18,29 @@ public class ActionsMenu extends JPanel {
         this.controller = controller;
         this.alertSender = alertSender;
         this.setBorder(BorderFactory.createTitledBorder("Seleccionar acción"));
-        JButton compressButton = new JButton("Comprimir"), decompressButton = new JButton("Descomprimir");
         JPanel buttonsPanel = new JPanel(new GridLayout(2, 1));
+        JButton compressButton = new JButton("Comprimir"),
+                decompressButton = new JButton("Descomprimir");
+        compressButton.addActionListener(this::onCompressFile);
+        decompressButton.addActionListener(this::onDecompressFile);
         buttonsPanel.add(compressButton);
         buttonsPanel.add(decompressButton);
         add(buttonsPanel);
+    }
+
+    private void onCompressFile(ActionEvent event) {
+        try {
+            controller.compressFile();
+        } catch (Exception e) {
+            alertSender.displayAlert("Error", e.getLocalizedMessage(), AlertSender.NotificationType.ERROR);
+        }
+    }
+
+    private void onDecompressFile(ActionEvent event) {
+        try {
+            controller.decompressFile();
+        } catch (Exception e) {
+            alertSender.displayAlert("Error", e.getLocalizedMessage(), AlertSender.NotificationType.ERROR);
+        }
     }
 }
