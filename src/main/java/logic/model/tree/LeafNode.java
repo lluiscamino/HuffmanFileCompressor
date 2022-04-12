@@ -12,6 +12,10 @@ public class LeafNode extends TreeNode {
         return value;
     }
 
+    public String getValueHexString() {
+        return "0x" + String.format("%02X", value);
+    }
+
     @Override
     public void accept(TreeVisitor visitor) {
         visitor.visit(this);
