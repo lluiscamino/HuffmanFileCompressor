@@ -12,13 +12,13 @@ import logic.encoder.BitEncodingMapBuilder;
 import logic.encoder.Encoder;
 import logic.encoder.HuffmanTreeBuilder;
 import logic.encoder.HuffmanTreeEncoder;
+import logic.model.transformation.Transformation;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -63,13 +63,14 @@ public class FileCompressionTest {
                 COMPRESSED_FILES_DIR_PATH + "/" + file.getName() + controller.getCompressedFileExtension()),
                 decompressedFile = new File(DECOMPRESSED_FILES_DIR_PATH + "/" + file.getName());
         try {
-            controller.compressFile(file, compressedFile);
+            Transformation compression = controller.compressFile(file, compressedFile);
             controller.decompressFile(compressedFile, decompressedFile);
             assertTrue(FileUtils.contentEquals(file, decompressedFile));
-            testFileSizesSum.addAndGet(Files.size(file.toPath()));
-            compressedFileSizesSum.addAndGet(Files.size(compressedFile.toPath()));
+            testFileSizesSum.addAndGet(compression.inputFileSizeBytes());
+            compressedFileSizesSum.addAndGet(compression.outputFileSizeBytes());
+            long numProcessedFiles = processedTestFiles.incrementAndGet();
             System.out.println(
-                    file.getName() + " OK! (" + processedTestFiles.incrementAndGet() + "/" + totalTestFiles + ")");
+                    file.getName() + " OK! " + compression.fileSizeRatio() + " (" + numProcessedFiles + "/" + totalTestFiles + ")");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
