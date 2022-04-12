@@ -50,7 +50,7 @@ public class ActionsMenu extends JPanel {
                 showHuffmanTreeDialog(transformation.huffmanTree());
                 showBitEncodingMapDialog(transformation.bitEncodingMap());
             }
-        } catch (IOException e) {
+        } catch (IOException | IllegalStateException e) {
             dialogSender.displayAlertDialog("Error", e.getLocalizedMessage(), DialogSender.NotificationType.ERROR);
         }
     }
@@ -67,7 +67,7 @@ public class ActionsMenu extends JPanel {
             if (option == DISPLAY_ENCODING_INDEX) {
                 showHuffmanTreeDialog(transformation.huffmanTree());
             }
-        } catch (IOException e) {
+        } catch (IOException | IllegalStateException e) {
             dialogSender.displayAlertDialog("Error", e.getLocalizedMessage(), DialogSender.NotificationType.ERROR);
         }
     }
