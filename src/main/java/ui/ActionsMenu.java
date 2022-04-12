@@ -105,7 +105,7 @@ public class ActionsMenu extends JPanel {
     }
 
     private void showHuffmanTreeDialog(HuffmanTree huffmanTree) {
-        HuffmanTreeDialog dialog = new HuffmanTreeDialog(new DOTGraphVisitor(huffmanTree));
+        HuffmanTreeDialog dialog = new HuffmanTreeDialog(new DOTGraphVisitor(huffmanTree), dialogSender);
         dialog.setVisible(true);
     }
 
