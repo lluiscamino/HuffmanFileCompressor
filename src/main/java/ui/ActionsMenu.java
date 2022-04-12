@@ -8,15 +8,16 @@ import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class ActionsMenu extends JPanel {
     private final Controller controller;
-    private final AlertSender alertSender;
+    private final DialogSender dialogSender;
 
-    public ActionsMenu(Controller controller, AlertSender alertSender) {
+    public ActionsMenu(Controller controller, DialogSender dialogSender) {
         super(new GridBagLayout());
         this.controller = controller;
-        this.alertSender = alertSender;
+        this.dialogSender = dialogSender;
         this.setBorder(BorderFactory.createTitledBorder("Seleccionar acción"));
         JPanel buttonsPanel = new JPanel(new GridLayout(2, 1));
         JButton compressButton = new JButton("Comprimir"),
@@ -31,16 +32,16 @@ public class ActionsMenu extends JPanel {
     private void onCompressFile(ActionEvent event) {
         try {
             controller.compressFile();
-        } catch (Exception e) {
-            alertSender.displayAlert("Error", e.getLocalizedMessage(), AlertSender.NotificationType.ERROR);
+        } catch (IOException e) {
+            dialogSender.displayAlertDialog("Error", e.getLocalizedMessage(), DialogSender.NotificationType.ERROR);
         }
     }
 
     private void onDecompressFile(ActionEvent event) {
         try {
             controller.decompressFile();
-        } catch (Exception e) {
-            alertSender.displayAlert("Error", e.getLocalizedMessage(), AlertSender.NotificationType.ERROR);
+        } catch (IOException e) {
+            dialogSender.displayAlertDialog("Error", e.getLocalizedMessage(), DialogSender.NotificationType.ERROR);
         }
     }
 }

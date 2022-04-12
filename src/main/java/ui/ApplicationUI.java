@@ -13,7 +13,7 @@ public class ApplicationUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel mainPanel = new JPanel();
         mainPanel.add(new FileSelectorPanel(controller));
-        mainPanel.add(new ActionsMenu(controller, new AlertSender()));
+        mainPanel.add(new ActionsMenu(controller, new DialogSender()));
         add(mainPanel);
         pack();
     }
