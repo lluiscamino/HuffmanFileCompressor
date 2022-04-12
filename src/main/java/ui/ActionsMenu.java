@@ -1,7 +1,10 @@
 package ui;
 
 import logic.controller.Controller;
+import logic.model.bits.BitSequence;
 import logic.model.transformation.Transformation;
+import logic.model.tree.HuffmanTree;
+import logic.model.tree.visitors.DOTGraphVisitor;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -10,9 +13,11 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.Map;
 
 public class ActionsMenu extends JPanel {
     private static final String[] SUCCESS_DIALOG_OPTIONS = {"Ver codificación", "Cerrar"};
+    private static final int DISPLAY_ENCODING_INDEX = 0;
 
     private final Controller controller;
     private final DialogSender dialogSender;
@@ -35,12 +40,16 @@ public class ActionsMenu extends JPanel {
     private void onCompressFile(ActionEvent event) {
         try {
             Transformation transformation = controller.compressFile();
-            dialogSender.displayOptionDialog(
+            int option = dialogSender.displayOptionDialog(
                     buildCompressionSuccessTitle(transformation),
                     buildCompressionSuccessMessage(transformation),
                     DialogSender.NotificationType.INFO,
                     SUCCESS_DIALOG_OPTIONS
             );
+            if (option == DISPLAY_ENCODING_INDEX) {
+                showHuffmanTreeDialog(transformation.huffmanTree());
+                showBitEncodingMapDialog(transformation.bitEncodingMap());
+            }
         } catch (IOException e) {
             dialogSender.displayAlertDialog("Error", e.getLocalizedMessage(), DialogSender.NotificationType.ERROR);
         }
@@ -49,12 +58,15 @@ public class ActionsMenu extends JPanel {
     private void onDecompressFile(ActionEvent event) {
         try {
             Transformation transformation = controller.decompressFile();
-            dialogSender.displayOptionDialog(
+            int option = dialogSender.displayOptionDialog(
                     buildDecompressionSuccessTitle(transformation),
                     buildDecompressionSuccessMessage(transformation),
                     DialogSender.NotificationType.INFO,
                     SUCCESS_DIALOG_OPTIONS
             );
+            if (option == DISPLAY_ENCODING_INDEX) {
+                showHuffmanTreeDialog(transformation.huffmanTree());
+            }
         } catch (IOException e) {
             dialogSender.displayAlertDialog("Error", e.getLocalizedMessage(), DialogSender.NotificationType.ERROR);
         }
@@ -90,5 +102,15 @@ public class ActionsMenu extends JPanel {
                         - Tiempo extracción: %s
                         """, transformation.outputFile().getPath(), transformation.inputFileSizeBytes(),
                 transformation.outputFileSizeBytes(), transformation.humanReadableDuration());
+    }
+
+    private void showHuffmanTreeDialog(HuffmanTree huffmanTree) {
+        HuffmanTreeDialog dialog = new HuffmanTreeDialog(new DOTGraphVisitor(huffmanTree));
+        dialog.setVisible(true);
+    }
+
+    private void showBitEncodingMapDialog(Map<Byte, BitSequence> bitEncodingMap) {
+        BitEncodingMapDialog dialog = new BitEncodingMapDialog(bitEncodingMap);
+        dialog.setVisible(true);
     }
 }
