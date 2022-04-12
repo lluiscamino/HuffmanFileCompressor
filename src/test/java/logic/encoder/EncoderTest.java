@@ -2,6 +2,7 @@ package logic.encoder;
 
 import logic.model.bits.BitSequence;
 import logic.model.tree.HuffmanTree;
+import logic.model.tree.LeafNode;
 import logic.model.tree.TreeNode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,8 +11,12 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collections;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -28,6 +33,40 @@ class EncoderTest {
         bitEncodingMapBuilder = mock(BitEncodingMapBuilder.class);
         huffmanTreeEncoder = mock(HuffmanTreeEncoder.class);
         encoder = new Encoder(huffmanTreeBuilder, bitEncodingMapBuilder, huffmanTreeEncoder);
+    }
+
+    @Test
+    void exceptionIsThrownOnNullHuffmanTree() {
+        assertThrows(IllegalStateException.class, () -> encoder.getHuffmanTree());
+    }
+
+    @Test
+    void getHuffmanTree() throws IOException {
+        InputStream inputStream1 = mock(InputStream.class),
+                inputStream2 = mock(InputStream.class);
+        OutputStream outputStream = mock(OutputStream.class);
+        HuffmanTree huffmanTree = new HuffmanTree(new LeafNode((byte) 3));
+        when(huffmanTreeBuilder.buildTree(inputStream1)).thenReturn(huffmanTree);
+        encoder.encode(inputStream1, inputStream2, outputStream);
+        assertEquals(huffmanTree, encoder.getHuffmanTree());
+    }
+
+    @Test
+    void exceptionIsThrownOnNullBitEncodingMap() {
+        assertThrows(IllegalStateException.class, () -> encoder.getBitEncodingMap());
+    }
+
+    @Test
+    void getBitEncodingMap() throws IOException {
+        InputStream inputStream1 = mock(InputStream.class),
+                inputStream2 = mock(InputStream.class);
+        OutputStream outputStream = mock(OutputStream.class);
+        HuffmanTree huffmanTree = new HuffmanTree(new LeafNode((byte) 3));
+        when(huffmanTreeBuilder.buildTree(inputStream1)).thenReturn(huffmanTree);
+        Map<Byte, BitSequence> bitEncodingMap = Collections.emptyMap();
+        when(bitEncodingMapBuilder.buildEncodingMap(any())).thenReturn(bitEncodingMap);
+        encoder.encode(inputStream1, inputStream2, outputStream);
+        assertEquals(bitEncodingMap, encoder.getBitEncodingMap());
     }
 
     @Test

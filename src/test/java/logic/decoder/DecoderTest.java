@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -31,6 +32,21 @@ class DecoderTest {
     void setUp() {
         huffmanTreeDecoder = mock(HuffmanTreeDecoder.class);
         decoder = new Decoder(huffmanTreeDecoder);
+    }
+
+    @Test
+    void exceptionIsThrownOnNullHuffmanTree() {
+        assertThrows(IllegalStateException.class, () -> decoder.getHuffmanTree());
+    }
+
+    @Test
+    void getHuffmanTree() throws IOException {
+        InputStream inputStream = mock(InputStream.class);
+        OutputStream outputStream = mock(OutputStream.class);
+        HuffmanTree huffmanTree = new HuffmanTree(new LeafNode((byte) 3));
+        when(huffmanTreeDecoder.decode(inputStream)).thenReturn(huffmanTree);
+        decoder.decode(inputStream, outputStream);
+        assertEquals(huffmanTree, decoder.getHuffmanTree());
     }
 
     @Test

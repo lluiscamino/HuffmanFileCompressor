@@ -12,12 +12,21 @@ import java.nio.ByteBuffer;
 public class Decoder {
     private final HuffmanTreeDecoder huffmanTreeDecoder;
 
+    private HuffmanTree huffmanTree;
+
     public Decoder(HuffmanTreeDecoder huffmanTreeDecoder) {
         this.huffmanTreeDecoder = huffmanTreeDecoder;
     }
 
+    public HuffmanTree getHuffmanTree() {
+        if (huffmanTree == null) {
+            throw new IllegalStateException("Huffman tree has not been decoded yet");
+        }
+        return huffmanTree;
+    }
+
     public void decode(InputStream inputStream, OutputStream outputStream) throws IOException {
-        HuffmanTree huffmanTree = huffmanTreeDecoder.decode(inputStream);
+        huffmanTree = huffmanTreeDecoder.decode(inputStream);
         TreeNode node = huffmanTree.getRoot();
         int numSymbols = readNumSymbols(inputStream), numReadSymbols = 0;
         outerLoop:

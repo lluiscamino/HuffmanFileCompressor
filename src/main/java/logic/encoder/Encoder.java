@@ -14,6 +14,9 @@ public class Encoder {
     private final BitEncodingMapBuilder bitEncodingMapBuilder;
     private final HuffmanTreeEncoder huffmanTreeEncoder;
 
+    private HuffmanTree huffmanTree;
+    private Map<Byte, BitSequence> bitEncodingMap;
+
     public Encoder(HuffmanTreeBuilder huffmanTreeBuilder, BitEncodingMapBuilder bitEncodingMapBuilder,
                    HuffmanTreeEncoder huffmanTreeEncoder) {
         this.huffmanTreeBuilder = huffmanTreeBuilder;
@@ -21,14 +24,28 @@ public class Encoder {
         this.huffmanTreeEncoder = huffmanTreeEncoder;
     }
 
+    public HuffmanTree getHuffmanTree() {
+        if (huffmanTree == null) {
+            throw new IllegalStateException("Huffman tree has not been built yet");
+        }
+        return huffmanTree;
+    }
+
+    public Map<Byte, BitSequence> getBitEncodingMap() {
+        if (huffmanTree == null) {
+            throw new IllegalStateException("Bit encoding map has not been build yet");
+        }
+        return bitEncodingMap;
+    }
+
     public void encode(InputStream inputStream1, InputStream inputStream2,
                        OutputStream outputStream) throws IOException {
         try (outputStream) {
-            HuffmanTree tree = huffmanTreeBuilder.buildTree(inputStream1);
-            huffmanTreeEncoder.encode(tree, outputStream);
-            writeNumSymbols(tree.getRoot().getFrequency(), outputStream);
-            Map<Byte, BitSequence> bitEncodingMap = bitEncodingMapBuilder.buildEncodingMap(tree);
-            writeBitSequence(inputStream2, outputStream, bitEncodingMap);
+            huffmanTree = huffmanTreeBuilder.buildTree(inputStream1);
+            huffmanTreeEncoder.encode(huffmanTree, outputStream);
+            writeNumSymbols(huffmanTree.getRoot().getFrequency(), outputStream);
+            bitEncodingMap = bitEncodingMapBuilder.buildEncodingMap(huffmanTree);
+            writeBitSequence(inputStream2, outputStream);
         }
     }
 
@@ -37,8 +54,7 @@ public class Encoder {
         outputStream.write(numSymbolsBuffer);
     }
 
-    private void writeBitSequence(InputStream inputStream, OutputStream outputStream,
-                                  Map<Byte, BitSequence> bitEncodingMap) throws IOException {
+    private void writeBitSequence(InputStream inputStream, OutputStream outputStream) throws IOException {
         BitSequence buffer = new BitSequence();
         while (inputStream.available() > 0) {
             byte byteVal = (byte) inputStream.read();

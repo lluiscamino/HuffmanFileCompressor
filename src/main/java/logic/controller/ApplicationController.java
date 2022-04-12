@@ -2,12 +2,15 @@ package logic.controller;
 
 import logic.decoder.Decoder;
 import logic.encoder.Encoder;
+import logic.model.bits.BitSequence;
 import logic.model.transformation.Transformation;
+import logic.model.tree.HuffmanTree;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Map;
 
 public class ApplicationController implements Controller {
     private static final String COMPRESSED_FILE_EXTENSION = ".huff";
@@ -60,7 +63,10 @@ public class ApplicationController implements Controller {
                 inputStream2 = inputStreamFactory.createInputStream(inputFile);
         OutputStream outputStream = outputStreamFactory.createOutputStream(outputFile);
         encoder.encode(inputStream1, inputStream2, outputStream);
-        return transformationFactory.createTransformation(inputFile, outputFile, System.nanoTime() - startTime);
+        HuffmanTree huffmanTree = encoder.getHuffmanTree();
+        Map<Byte, BitSequence> bitEncodingMap = encoder.getBitEncodingMap();
+        return transformationFactory.createTransformation(inputFile, outputFile, System.nanoTime() - startTime,
+                huffmanTree, bitEncodingMap);
     }
 
     @Override
@@ -82,6 +88,8 @@ public class ApplicationController implements Controller {
         InputStream inputStream = inputStreamFactory.createInputStream(inputFile);
         OutputStream outputStream = outputStreamFactory.createOutputStream(outputFile);
         decoder.decode(inputStream, outputStream);
-        return transformationFactory.createTransformation(inputFile, outputFile, System.nanoTime() - startTime);
+        HuffmanTree huffmanTree = decoder.getHuffmanTree();
+        return transformationFactory.createTransformation(inputFile, outputFile, System.nanoTime() - startTime,
+                huffmanTree);
     }
 }

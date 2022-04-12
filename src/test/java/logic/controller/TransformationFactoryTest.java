@@ -20,6 +20,7 @@ class TransformationFactoryTest {
     void createTransformation() throws IOException {
         File inputFile = File.createTempFile("input", null),
                 outputFile = File.createTempFile("output", null);
-        assertNotNull(transformationFactory.createTransformation(inputFile, outputFile, 34));
+        assertNotNull(transformationFactory.createTransformation(inputFile, outputFile, 34, null));
+        assertNotNull(transformationFactory.createTransformation(inputFile, outputFile, 34, null, null));
     }
 }
