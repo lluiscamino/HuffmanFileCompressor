@@ -16,6 +16,7 @@ public class FileSelectorPanel extends JPanel {
         super(new CardLayout());
         this.controller = controller;
         this.setBorder(BorderFactory.createTitledBorder("Seleccionar archivo"));
+        this.fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         this.fileChooser.addPropertyChangeListener(this::onFileSelect);
         this.add(fileChooser);
     }
