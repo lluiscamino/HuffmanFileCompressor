@@ -23,7 +23,7 @@ The compressor or encoder first reads the input file and constructs a Huffman tr
 
 <div align="center">
   
-  ![Huffman tree example for sentence "AABBBCD"](https://raw.githubusercontent.com/lluiscamino/HuffmanFileCompressor/main/tree_example.svg?token=GHSAT0AAAAAABPZD3KZHSJZY7TMOPZCH7JMYSV4N3Q)
+  ![Huffman tree example for sentence "AABBBCD"](https://raw.githubusercontent.com/lluiscamino/HuffmanFileCompressor/b508c608083116c4312677e7c71904046bf86538/tree_example.svg?token=AFPS2QBUJRIYPZZZC77FHYDCKXNFI)
 </div>
 
 Then, it encodes the input tree at the start of the output file, so that it can be decompressed in the future.
@@ -44,7 +44,7 @@ To compress or decompress a file, just select it on the file selector and then c
 
 <div align="center">
   
-![Program GUI](https://raw.githubusercontent.com/lluiscamino/HuffmanFileCompressor/main/gui_screenshot.png?token=GHSAT0AAAAAABPZD3KYQZQ2DBEIGRH6HKKCYSV4Z4Q)
+![Program GUI](https://github.com/lluiscamino/HuffmanFileCompressor/blob/main/gui_screenshot.png?raw=true)
 </div>
 
 After having compressed or decompressed a file, it is possible to see the Huffman tree and codes. The Huffman tree can also be saved as a SVG image.
