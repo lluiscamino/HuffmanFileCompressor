@@ -31,7 +31,8 @@ class ApplicationControllerTest {
         fileFactory = mock(FileFactory.class);
         inputStreamFactory = mock(InputStreamFactory.class);
         outputStreamFactory = mock(OutputStreamFactory.class);
-        controller = new ApplicationController(encoder, decoder, fileFactory, inputStreamFactory, outputStreamFactory);
+        controller = new ApplicationController(encoder, decoder, fileFactory, inputStreamFactory, outputStreamFactory,
+                mock(TransformationFactory.class));
     }
 
     @Test

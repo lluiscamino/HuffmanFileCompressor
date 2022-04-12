@@ -1,5 +1,7 @@
 package logic.controller;
 
+import logic.model.transformation.Transformation;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -8,11 +10,11 @@ public interface Controller {
 
     void selectFile(File file);
 
-    void compressFile() throws IOException;
+    Transformation compressFile() throws IOException;
 
-    void compressFile(File inputFile, File outputFile) throws IOException;
+    Transformation compressFile(File inputFile, File outputFile) throws IOException;
 
-    void decompressFile() throws IOException;
+    Transformation decompressFile() throws IOException;
 
-    void decompressFile(File inputFile, File outputFile) throws IOException;
+    Transformation decompressFile(File inputFile, File outputFile) throws IOException;
 }

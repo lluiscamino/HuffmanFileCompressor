@@ -5,6 +5,7 @@ import logic.controller.Controller;
 import logic.controller.FileFactory;
 import logic.controller.InputStreamFactory;
 import logic.controller.OutputStreamFactory;
+import logic.controller.TransformationFactory;
 import logic.decoder.Decoder;
 import logic.decoder.HuffmanTreeDecoder;
 import logic.encoder.BitEncodingMapBuilder;
@@ -37,7 +38,7 @@ public class FileCompressionTest {
         Encoder encoder = new Encoder(new HuffmanTreeBuilder(), new BitEncodingMapBuilder(), new HuffmanTreeEncoder());
         Decoder decoder = new Decoder(new HuffmanTreeDecoder());
         controller = new ApplicationController(encoder, decoder, new FileFactory(), new InputStreamFactory(),
-                new OutputStreamFactory());
+                new OutputStreamFactory(), new TransformationFactory());
         processedTestFiles = new AtomicLong();
         testFileSizesSum = new AtomicLong();
         compressedFileSizesSum = new AtomicLong();

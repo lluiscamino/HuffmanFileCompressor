@@ -2,6 +2,7 @@ package logic.controller;
 
 import logic.decoder.Decoder;
 import logic.encoder.Encoder;
+import logic.model.transformation.Transformation;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,17 +18,20 @@ public class ApplicationController implements Controller {
     private final FileFactory fileFactory;
     private final InputStreamFactory inputStreamFactory;
     private final OutputStreamFactory outputStreamFactory;
+    private final TransformationFactory transformationFactory;
 
     private File selectedFile = null;
 
     public ApplicationController(Encoder encoder, Decoder decoder, FileFactory fileFactory,
                                  InputStreamFactory inputStreamFactory,
-                                 OutputStreamFactory outputStreamFactory) {
+                                 OutputStreamFactory outputStreamFactory,
+                                 TransformationFactory transformationFactory) {
         this.encoder = encoder;
         this.decoder = decoder;
         this.fileFactory = fileFactory;
         this.inputStreamFactory = inputStreamFactory;
         this.outputStreamFactory = outputStreamFactory;
+        this.transformationFactory = transformationFactory;
     }
 
     @Override
@@ -41,24 +45,26 @@ public class ApplicationController implements Controller {
     }
 
     @Override
-    public void compressFile() throws IOException {
+    public Transformation compressFile() throws IOException {
         if (selectedFile == null) {
             throw new IllegalStateException("No file has been selected");
         }
         File outputFile = fileFactory.createFile(selectedFile.getAbsolutePath() + COMPRESSED_FILE_EXTENSION);
-        compressFile(selectedFile, outputFile);
+        return compressFile(selectedFile, outputFile);
     }
 
     @Override
-    public void compressFile(File inputFile, File outputFile) throws IOException {
+    public Transformation compressFile(File inputFile, File outputFile) throws IOException {
+        long startTime = System.nanoTime();
         InputStream inputStream1 = inputStreamFactory.createInputStream(inputFile),
                 inputStream2 = inputStreamFactory.createInputStream(inputFile);
         OutputStream outputStream = outputStreamFactory.createOutputStream(outputFile);
         encoder.encode(inputStream1, inputStream2, outputStream);
+        return transformationFactory.createTransformation(inputFile, outputFile, System.nanoTime() - startTime);
     }
 
     @Override
-    public void decompressFile() throws IOException {
+    public Transformation decompressFile() throws IOException {
         if (selectedFile == null) {
             throw new IllegalStateException("No file has been selected");
         }
@@ -67,13 +73,15 @@ public class ApplicationController implements Controller {
                 inputPath.replace(COMPRESSED_FILE_EXTENSION, "") :
                 inputPath + DECOMPRESSED_FILE_EXTENSION;
         File outputFile = fileFactory.createFile(outputPath);
-        decompressFile(selectedFile, outputFile);
+        return decompressFile(selectedFile, outputFile);
     }
 
     @Override
-    public void decompressFile(File inputFile, File outputFile) throws IOException {
+    public Transformation decompressFile(File inputFile, File outputFile) throws IOException {
+        long startTime = System.nanoTime();
         InputStream inputStream = inputStreamFactory.createInputStream(inputFile);
         OutputStream outputStream = outputStreamFactory.createOutputStream(outputFile);
         decoder.decode(inputStream, outputStream);
+        return transformationFactory.createTransformation(inputFile, outputFile, System.nanoTime() - startTime);
     }
 }
