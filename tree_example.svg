@@ -1,0 +1,107 @@
+<svg width="254px" height="338px"
+ viewBox="0.00 0.00 254.00 338.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1.0 1.0) rotate(0.0) translate(4.0 334.0)">
+<title>huffman_tree</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-334 250,-334 250,4 -4,4"/>
+<!-- 942093022 -->
+<g id="node1" class="node">
+<title>942093022</title>
+<ellipse fill="none" stroke="black" cx="62" cy="-312" rx="27" ry="18"/>
+<text text-anchor="middle" x="62" y="-308.3" font-family="Times New Roman,serif" font-size="14.00">7</text>
+</g>
+<!-- 19152889 -->
+<g id="node2" class="node">
+<title>19152889</title>
+<polygon fill="none" stroke="black" points="0,-196.5 0,-242.5 70,-242.5 70,-196.5 0,-196.5"/>
+<text text-anchor="middle" x="22" y="-227.3" font-family="Times New Roman,serif" font-size="14.00">0x42</text>
+<polyline fill="none" stroke="black" points="44,-219.5 44,-242.5 "/>
+<text text-anchor="middle" x="57" y="-227.3" font-family="Times New Roman,serif" font-size="14.00">B</text>
+<polyline fill="none" stroke="black" points="0,-219.5 70,-219.5 "/>
+<text text-anchor="middle" x="35" y="-204.3" font-family="Times New Roman,serif" font-size="14.00">3</text>
+</g>
+<!-- 942093022&#45;&gt;19152889 -->
+<g id="edge1" class="edge">
+<title>942093022&#45;&gt;19152889</title>
+<path fill="none" stroke="black" d="M56.92,-293.98C53.43,-282.28 48.69,-266.38 44.51,-252.37"/>
+<polygon fill="black" stroke="black" points="47.8,-251.17 41.59,-242.58 41.09,-253.17 47.8,-251.17"/>
+<text text-anchor="middle" x="54.5" y="-264.8" font-family="Times New Roman,serif" font-size="14.00">0</text>
+</g>
+<!-- 1712289996 -->
+<g id="node3" class="node">
+<title>1712289996</title>
+<ellipse fill="none" stroke="black" cx="115" cy="-219.5" rx="27" ry="18"/>
+<text text-anchor="middle" x="115" y="-215.8" font-family="Times New Roman,serif" font-size="14.00">4</text>
+</g>
+<!-- 942093022&#45;&gt;1712289996 -->
+<g id="edge2" class="edge">
+<title>942093022&#45;&gt;1712289996</title>
+<path fill="none" stroke="black" d="M71.48,-294.82C79.54,-281.05 91.25,-261.05 100.5,-245.27"/>
+<polygon fill="black" stroke="black" points="103.57,-246.94 105.61,-236.54 97.53,-243.4 103.57,-246.94"/>
+<text text-anchor="middle" x="94.5" y="-264.8" font-family="Times New Roman,serif" font-size="14.00">1</text>
+</g>
+<!-- 2029395449 -->
+<g id="node4" class="node">
+<title>2029395449</title>
+<polygon fill="none" stroke="black" points="52,-98.5 52,-144.5 122,-144.5 122,-98.5 52,-98.5"/>
+<text text-anchor="middle" x="74" y="-129.3" font-family="Times New Roman,serif" font-size="14.00">0x41</text>
+<polyline fill="none" stroke="black" points="96,-121.5 96,-144.5 "/>
+<text text-anchor="middle" x="109" y="-129.3" font-family="Times New Roman,serif" font-size="14.00">A</text>
+<polyline fill="none" stroke="black" points="52,-121.5 122,-121.5 "/>
+<text text-anchor="middle" x="87" y="-106.3" font-family="Times New Roman,serif" font-size="14.00">2</text>
+</g>
+<!-- 1712289996&#45;&gt;2029395449 -->
+<g id="edge3" class="edge">
+<title>1712289996&#45;&gt;2029395449</title>
+<path fill="none" stroke="black" d="M110.12,-201.78C106.34,-188.82 100.99,-170.48 96.39,-154.7"/>
+<polygon fill="black" stroke="black" points="99.66,-153.41 93.5,-144.79 92.94,-155.37 99.66,-153.41"/>
+<text text-anchor="middle" x="106.5" y="-166.8" font-family="Times New Roman,serif" font-size="14.00">0</text>
+</g>
+<!-- 2043044347 -->
+<g id="node5" class="node">
+<title>2043044347</title>
+<ellipse fill="none" stroke="black" cx="167" cy="-121.5" rx="27" ry="18"/>
+<text text-anchor="middle" x="167" y="-117.8" font-family="Times New Roman,serif" font-size="14.00">2</text>
+</g>
+<!-- 1712289996&#45;&gt;2043044347 -->
+<g id="edge4" class="edge">
+<title>1712289996&#45;&gt;2043044347</title>
+<path fill="none" stroke="black" d="M123.82,-202.21C131.94,-187.23 144.1,-164.78 153.45,-147.52"/>
+<polygon fill="black" stroke="black" points="156.62,-149 158.31,-138.54 150.47,-145.67 156.62,-149"/>
+<text text-anchor="middle" x="147.5" y="-166.8" font-family="Times New Roman,serif" font-size="14.00">1</text>
+</g>
+<!-- 1505579725 -->
+<g id="node6" class="node">
+<title>1505579725</title>
+<polygon fill="none" stroke="black" points="88,-0.5 88,-46.5 158,-46.5 158,-0.5 88,-0.5"/>
+<text text-anchor="middle" x="110" y="-31.3" font-family="Times New Roman,serif" font-size="14.00">0x43</text>
+<polyline fill="none" stroke="black" points="132,-23.5 132,-46.5 "/>
+<text text-anchor="middle" x="145" y="-31.3" font-family="Times New Roman,serif" font-size="14.00">C</text>
+<polyline fill="none" stroke="black" points="88,-23.5 158,-23.5 "/>
+<text text-anchor="middle" x="123" y="-8.3" font-family="Times New Roman,serif" font-size="14.00">1</text>
+</g>
+<!-- 2043044347&#45;&gt;1505579725 -->
+<g id="edge5" class="edge">
+<title>2043044347&#45;&gt;1505579725</title>
+<path fill="none" stroke="black" d="M159.34,-103.78C153.34,-90.7 144.83,-72.13 137.55,-56.25"/>
+<polygon fill="black" stroke="black" points="140.56,-54.42 133.22,-46.79 134.2,-57.34 140.56,-54.42"/>
+<text text-anchor="middle" x="150.5" y="-68.8" font-family="Times New Roman,serif" font-size="14.00">0</text>
+</g>
+<!-- 1147766830 -->
+<g id="node7" class="node">
+<title>1147766830</title>
+<polygon fill="none" stroke="black" points="176,-0.5 176,-46.5 246,-46.5 246,-0.5 176,-0.5"/>
+<text text-anchor="middle" x="198" y="-31.3" font-family="Times New Roman,serif" font-size="14.00">0x44</text>
+<polyline fill="none" stroke="black" points="220,-23.5 220,-46.5 "/>
+<text text-anchor="middle" x="233" y="-31.3" font-family="Times New Roman,serif" font-size="14.00">D</text>
+<polyline fill="none" stroke="black" points="176,-23.5 246,-23.5 "/>
+<text text-anchor="middle" x="211" y="-8.3" font-family="Times New Roman,serif" font-size="14.00">1</text>
+</g>
+<!-- 2043044347&#45;&gt;1147766830 -->
+<g id="edge6" class="edge">
+<title>2043044347&#45;&gt;1147766830</title>
+<path fill="none" stroke="black" d="M174.66,-103.78C180.66,-90.7 189.17,-72.13 196.45,-56.25"/>
+<polygon fill="black" stroke="black" points="199.8,-57.34 200.78,-46.79 193.44,-54.42 199.8,-57.34"/>
+<text text-anchor="middle" x="194.5" y="-68.8" font-family="Times New Roman,serif" font-size="14.00">1</text>
+</g>
+</g>
+</svg>
