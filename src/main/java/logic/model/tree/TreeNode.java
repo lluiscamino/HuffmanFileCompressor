@@ -30,6 +30,8 @@ public abstract class TreeNode implements Comparable<TreeNode> {
         return rightChild;
     }
 
+    public abstract void accept(TreeVisitor visitor);
+
     @Override
     public int compareTo(TreeNode o) {
         return Integer.compare(frequency, o.frequency);

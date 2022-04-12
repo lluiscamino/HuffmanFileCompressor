@@ -11,4 +11,9 @@ public class LeafNode extends TreeNode {
     public byte getValue() {
         return value;
     }
+
+    @Override
+    public void accept(TreeVisitor visitor) {
+        visitor.visit(this);
+    }
 }

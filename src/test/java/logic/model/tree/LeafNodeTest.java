@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 class LeafNodeTest {
     @Test
@@ -36,5 +38,13 @@ class LeafNodeTest {
         assertEquals(1, node2.getFrequency());
         assertTrue(node1.compareTo(node2) > 0);
         assertTrue(node2.compareTo(node1) < 0);
+    }
+
+    @Test
+    void accept() {
+        TreeVisitor visitor = mock(TreeVisitor.class);
+        LeafNode node = new LeafNode((byte) -7);
+        node.accept(visitor);
+        verify(visitor).visit(node);
     }
 }
