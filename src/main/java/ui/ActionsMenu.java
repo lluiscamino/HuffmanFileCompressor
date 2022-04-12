@@ -9,9 +9,9 @@ import logic.model.tree.visitors.DOTGraphVisitor;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import java.awt.Cursor;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.Map;
 
@@ -21,6 +21,8 @@ public class ActionsMenu extends JPanel {
 
     private final Controller controller;
     private final DialogSender dialogSender;
+    private final JButton compressButton = new JButton("Comprimir"),
+            decompressButton = new JButton("Descomprimir");
 
     public ActionsMenu(Controller controller, DialogSender dialogSender) {
         super(new GridBagLayout());
@@ -28,17 +30,16 @@ public class ActionsMenu extends JPanel {
         this.dialogSender = dialogSender;
         this.setBorder(BorderFactory.createTitledBorder("Seleccionar acción"));
         JPanel buttonsPanel = new JPanel(new GridLayout(2, 1));
-        JButton compressButton = new JButton("Comprimir"),
-                decompressButton = new JButton("Descomprimir");
-        compressButton.addActionListener(this::onCompressFile);
-        decompressButton.addActionListener(this::onDecompressFile);
+        compressButton.addActionListener(event -> new Thread(this::onCompressFile).start());
+        decompressButton.addActionListener(event -> new Thread(this::onDecompressFile).start());
         buttonsPanel.add(compressButton);
         buttonsPanel.add(decompressButton);
         add(buttonsPanel);
     }
 
-    private void onCompressFile(ActionEvent event) {
+    private void onCompressFile() {
         try {
+            signalTransformationStart();
             Transformation transformation = controller.compressFile();
             int option = dialogSender.displayOptionDialog(
                     buildCompressionSuccessTitle(transformation),
@@ -52,11 +53,14 @@ public class ActionsMenu extends JPanel {
             }
         } catch (IOException | IllegalStateException e) {
             dialogSender.displayAlertDialog("Error", e.getLocalizedMessage(), DialogSender.NotificationType.ERROR);
+        } finally {
+            signalTransformationEnd();
         }
     }
 
-    private void onDecompressFile(ActionEvent event) {
+    private void onDecompressFile() {
         try {
+            signalTransformationStart();
             Transformation transformation = controller.decompressFile();
             int option = dialogSender.displayOptionDialog(
                     buildDecompressionSuccessTitle(transformation),
@@ -69,7 +73,21 @@ public class ActionsMenu extends JPanel {
             }
         } catch (IOException | IllegalStateException e) {
             dialogSender.displayAlertDialog("Error", e.getLocalizedMessage(), DialogSender.NotificationType.ERROR);
+        } finally {
+            signalTransformationEnd();
         }
+    }
+
+    private void signalTransformationStart() {
+        compressButton.setEnabled(false);
+        decompressButton.setEnabled(false);
+        setCursor(new Cursor(Cursor.WAIT_CURSOR));
+    }
+
+    private void signalTransformationEnd() {
+        compressButton.setEnabled(true);
+        decompressButton.setEnabled(true);
+        setCursor(Cursor.getDefaultCursor());
     }
 
     private String buildCompressionSuccessTitle(Transformation transformation) {
