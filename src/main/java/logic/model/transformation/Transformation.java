@@ -8,9 +8,14 @@ import java.time.Duration;
 import java.util.Map;
 
 public record Transformation(File inputFile, File outputFile, long inputFileSizeBytes, long outputFileSizeBytes,
-                             Duration duration, HuffmanTree huffmanTree, Map<Byte, BitSequence> bitEncodingMap) {
+                             Float entropy, Duration duration, HuffmanTree huffmanTree,
+                             Map<Byte, BitSequence> bitEncodingMap) {
     public float fileSizeRatio() {
         return (float) inputFileSizeBytes / outputFileSizeBytes;
+    }
+
+    public long theoreticalExpectedFileSize() {
+        return (long) (entropy * inputFileSizeBytes) / 8;
     }
 
     public String humanReadableDuration() {

@@ -21,6 +21,6 @@ class TransformationFactoryTest {
         File inputFile = File.createTempFile("input", null),
                 outputFile = File.createTempFile("output", null);
         assertNotNull(transformationFactory.createTransformation(inputFile, outputFile, 34, null));
-        assertNotNull(transformationFactory.createTransformation(inputFile, outputFile, 34, null, null));
+        assertNotNull(transformationFactory.createTransformation(inputFile, outputFile, null, 34, null, null));
     }
 }

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class HuffmanTreeBuilderTest {
     private HuffmanTreeBuilder huffmanTreeBuilder;
@@ -18,6 +19,26 @@ class HuffmanTreeBuilderTest {
     @BeforeEach
     void setUp() {
         huffmanTreeBuilder = new HuffmanTreeBuilder();
+    }
+
+    @Test
+    void exceptionIsThrownOnNullEntropy() {
+        assertThrows(IllegalStateException.class, () -> huffmanTreeBuilder.getEntropy());
+    }
+
+    @Test
+    void getEntropy() throws IOException {
+        InputStream inputStream1 = new ByteArrayInputStream("ccc".getBytes());
+        huffmanTreeBuilder.buildTree(inputStream1);
+        assertEquals(0, huffmanTreeBuilder.getEntropy());
+
+        InputStream inputStream2 = new ByteArrayInputStream("abbc".getBytes());
+        huffmanTreeBuilder.buildTree(inputStream2);
+        assertEquals(1.5, huffmanTreeBuilder.getEntropy());
+
+        InputStream inputStream3 = new ByteArrayInputStream("aabb".getBytes());
+        huffmanTreeBuilder.buildTree(inputStream3);
+        assertEquals(1, huffmanTreeBuilder.getEntropy());
     }
 
     @Test

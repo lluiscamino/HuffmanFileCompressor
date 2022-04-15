@@ -13,12 +13,14 @@ import java.util.Map;
 public class TransformationFactory {
     public Transformation createTransformation(File inputFile, File outputFile, long nanoTime,
                                                HuffmanTree huffmanTree) throws IOException {
-        return createTransformation(inputFile, outputFile, nanoTime, huffmanTree, null);
+        return createTransformation(inputFile, outputFile, null, nanoTime, huffmanTree, null);
     }
 
-    public Transformation createTransformation(File inputFile, File outputFile, long nanoTime, HuffmanTree huffmanTree,
+    public Transformation createTransformation(File inputFile, File outputFile, Float entropy, long nanoTime,
+                                               HuffmanTree huffmanTree,
                                                Map<Byte, BitSequence> bitEncodingMap) throws IOException {
         return new Transformation(inputFile, outputFile, Files.size(inputFile.toPath()),
-                Files.size(outputFile.toPath()), Duration.ofNanos(nanoTime), huffmanTree, bitEncodingMap);
+                Files.size(outputFile.toPath()), entropy, Duration.ofNanos(nanoTime), huffmanTree,
+                bitEncodingMap);
     }
 }

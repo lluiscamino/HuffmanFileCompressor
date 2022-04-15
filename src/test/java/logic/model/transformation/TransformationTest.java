@@ -9,8 +9,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class TransformationTest {
     @Test
     void fileSizeRatio() {
-        Transformation transformation = new Transformation(null, null, 4, 2, Duration.ZERO, null, null);
+        Transformation transformation = new Transformation(null, null, 4, 2, null, Duration.ZERO, null, null);
         assertEquals(2, transformation.fileSizeRatio());
+    }
+
+    @Test
+    void theoreticalExpectedFileSize() {
+        Transformation transformation = new Transformation(null, null, 1000, 400, 3f, Duration.ZERO, null, null);
+        assertEquals(375, transformation.theoreticalExpectedFileSize());
     }
 
     @Test
@@ -22,7 +28,7 @@ class TransformationTest {
         for (int i = 0; i < durations.length; i++) {
             Duration duration = durations[i];
             String expectedHumanReadableRepresentation = expectedHumanReadableRepresentations[i];
-            Transformation transformation = new Transformation(null, null, 0, 0, duration, null, null);
+            Transformation transformation = new Transformation(null, null, 0, 0, null, duration, null, null);
             assertEquals(expectedHumanReadableRepresentation, transformation.humanReadableDuration());
         }
     }

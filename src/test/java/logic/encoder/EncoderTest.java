@@ -52,6 +52,12 @@ class EncoderTest {
     }
 
     @Test
+    void exceptionIsThrownOnNullEntropy() {
+        when(huffmanTreeBuilder.getEntropy()).thenCallRealMethod();
+        assertThrows(IllegalStateException.class, () -> encoder.getEntropy());
+    }
+
+    @Test
     void exceptionIsThrownOnNullBitEncodingMap() {
         assertThrows(IllegalStateException.class, () -> encoder.getBitEncodingMap());
     }

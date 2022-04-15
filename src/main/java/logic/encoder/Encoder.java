@@ -31,6 +31,10 @@ public class Encoder {
         return huffmanTree;
     }
 
+    public float getEntropy() {
+        return huffmanTreeBuilder.getEntropy();
+    }
+
     public Map<Byte, BitSequence> getBitEncodingMap() {
         if (huffmanTree == null) {
             throw new IllegalStateException("Bit encoding map has not been build yet");

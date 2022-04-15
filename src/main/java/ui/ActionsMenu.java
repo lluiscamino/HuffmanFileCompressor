@@ -100,10 +100,13 @@ public class ActionsMenu extends JPanel {
                         - Archivo comprimido: %s
                         - Tamaño archivo original: %dB
                         - Tamaño archivo comprimido: %dB
+                        - Tamaño mínimo teórico: %dB
                         - Ratio compresión: %f
+                        - Entropía: %f
                         - Tiempo compresión: %s
                         """, transformation.outputFile().getPath(), transformation.inputFileSizeBytes(),
-                transformation.outputFileSizeBytes(), transformation.fileSizeRatio(),
+                transformation.outputFileSizeBytes(), transformation.theoreticalExpectedFileSize(),
+                transformation.fileSizeRatio(), transformation.entropy(),
                 transformation.humanReadableDuration());
     }
 

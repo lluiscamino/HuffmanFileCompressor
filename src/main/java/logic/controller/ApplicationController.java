@@ -65,8 +65,8 @@ public class ApplicationController implements Controller {
         encoder.encode(inputStream1, inputStream2, outputStream);
         HuffmanTree huffmanTree = encoder.getHuffmanTree();
         Map<Byte, BitSequence> bitEncodingMap = encoder.getBitEncodingMap();
-        return transformationFactory.createTransformation(inputFile, outputFile, System.nanoTime() - startTime,
-                huffmanTree, bitEncodingMap);
+        return transformationFactory.createTransformation(inputFile, outputFile, encoder.getEntropy(),
+                System.nanoTime() - startTime, huffmanTree, bitEncodingMap);
     }
 
     @Override

@@ -8,15 +8,27 @@ import logic.model.tree.TreeNode;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.PriorityQueue;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class HuffmanTreeBuilder {
     private static final int NUM_UNIQUE_BYTES = 256;
 
+    private Float entropy;
+
+    public float getEntropy() {
+        if (entropy == null) {
+            throw new IllegalStateException("Entropy has not been calculated yet");
+        }
+        return entropy;
+    }
+
     public HuffmanTree buildTree(InputStream inputStream) throws IOException {
         PriorityQueue<TreeNode> treeNodes = buildLeafNodes(inputStream);
+        entropy = calculateEntropy(treeNodes);
         HuffmanTree tree = buildHuffmanTree(treeNodes);
         if (tree.getRoot() instanceof LeafNode leafNode) {
             TreeNode rightChild = new LeafNode((byte) 0);
@@ -37,6 +49,18 @@ public class HuffmanTreeBuilder {
             byteCount[unsignedByteVal].increaseFrequency();
         }
         return Arrays.stream(byteCount).filter(Objects::nonNull).collect(Collectors.toCollection(PriorityQueue::new));
+    }
+
+    private float calculateEntropy(Collection<TreeNode> leafNodes) {
+        int frequenciesSum = leafNodes.stream().map(TreeNode::getFrequency).mapToInt(f -> f).sum();
+        Function<Float, Double> log2 = val -> Math.log(val) / Math.log(2);
+        return (float) leafNodes
+                .stream()
+                .map(TreeNode::getFrequency)
+                .map(frequency -> (float) frequency / frequenciesSum)
+                .map(percentage -> percentage * log2.apply((float) 1 / percentage))
+                .mapToDouble(f -> f)
+                .sum();
     }
 
     private HuffmanTree buildHuffmanTree(PriorityQueue<TreeNode> treeNodes) {
