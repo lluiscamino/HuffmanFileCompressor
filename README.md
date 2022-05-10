@@ -28,7 +28,7 @@ in the file. For example, for an input file with the sentence "AABBBCD", it woul
 
 <div align="center">
 
-![Huffman tree example for sentence "AABBBCD"](https://raw.githubusercontent.com/lluiscamino/HuffmanFileCompressor/b508c608083116c4312677e7c71904046bf86538/tree_example.svg?token=AFPS2QBUJRIYPZZZC77FHYDCKXNFI)
+![Huffman tree example for sentence "AABBBCD"](https://github.com/lluiscamino/HuffmanFileCompressor/blob/main/tree_example.svg?raw=true)
 </div>
 
 Then, it encodes the input tree at the start of the output file, so that it can be decompressed in the future.
